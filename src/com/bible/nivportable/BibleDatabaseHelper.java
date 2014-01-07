@@ -2,7 +2,6 @@ package com.bible.nivportable;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -94,23 +93,46 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
-
-	// SQL Select Book Titles by Old Testament (1) or New Testament (2)
-	// Extension will include Bible version
-	public HashMap<String, String> selectBookTitles(int collection) {
+	
+	
+	//Selects book IDs of Old Testament or New Testament
+	ArrayList<String> selectBookTitleIds(int collection) {
 		Cursor c = mDatabase.rawQuery(
-				"SELECT _id, name FROM Book WHERE collection = ?",
+				"SELECT _id FROM Book WHERE collection = ?",
 				new String[] { Integer.toString(collection) });
 
-		HashMap<String, String> bookIdTitles = new HashMap<String, String>();
+		ArrayList<String> bookIdTitles = new ArrayList<String>();
 
 		c.moveToFirst();
 		while (!c.isAfterLast()) {
-			bookIdTitles.put(c.getString(0), c.getString(1));
+			bookIdTitles.add(c.getString(0));
 			c.moveToNext();
 		}
 		c.close();
 
 		return bookIdTitles;
 	}
+
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectBookTitles(int collection) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT name FROM Book WHERE collection = ?",
+				new String[] { Integer.toString(collection) });
+
+		ArrayList<String> bookIdTitles = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			bookIdTitles.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return bookIdTitles;
+	}
+
+	// Old method - Will no longer be used because HashMap is unordered and
+	// OrderedHashMap + LinkedHashMap cannot be serialized
+	// SQL Select Book Titles by Old Testament (1) or New Testament (2)
+	// Extension will include Bible version
 }

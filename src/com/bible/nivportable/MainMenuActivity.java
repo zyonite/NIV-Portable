@@ -1,7 +1,6 @@
 package com.bible.nivportable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -32,13 +31,14 @@ public class MainMenuActivity extends Activity {
 	public void loadOldTestament(View view) {
 
 		if (bdh.openDataBase()) {
-			HashMap<String, String> bookTitles = bdh.selectBookTitles(1);
+			ArrayList<String> bookIds = bdh.selectBookTitleIds(1);
+			ArrayList<String> bookTitles = bdh.selectBookTitles(1);
 
 			Intent intent = new Intent(this, DisplayOldTestamentActivity.class);
 
-			Bundle extras = new Bundle();
-			extras.putSerializable("BOOK_MENU", bookTitles);
-			intent.putExtras(extras);
+			intent.putStringArrayListExtra("BOOK_IDS", bookIds);
+			intent.putStringArrayListExtra("BOOK_NAMES", bookTitles);
+
 			startActivity(intent);
 
 			bdh.close();
@@ -48,16 +48,17 @@ public class MainMenuActivity extends Activity {
 	public void loadNewTestament(View view) {
 
 		if (bdh.openDataBase()) {
-			HashMap<String, String> bookTitles = bdh.selectBookTitles(2);
+			ArrayList<String> bookTitles = bdh.selectBookTitles(2);
 
-			/*Intent intent = new Intent(this, DisplayNewTestamentActivity.class);
-
-			Bundle extras = new Bundle();
-			extras.putSerializable("BOOK_MENU", bookTitles);
-			intent.putExtras(extras);
-			startActivity(intent);
-
-			bdh.close();*/
+			/*
+			 * Intent intent = new Intent(this,
+			 * DisplayNewTestamentActivity.class);
+			 * 
+			 * Bundle extras = new Bundle(); extras.putSerializable("BOOK_MENU",
+			 * bookTitles); intent.putExtras(extras); startActivity(intent);
+			 * 
+			 * bdh.close();
+			 */
 		}
 	}
 }

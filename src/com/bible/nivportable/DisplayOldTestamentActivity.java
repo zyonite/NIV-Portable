@@ -1,7 +1,6 @@
 package com.bible.nivportable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.bible.nivportable.R;
 
@@ -27,30 +26,23 @@ public class DisplayOldTestamentActivity extends Activity {
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
+		ArrayList<String> bookIds = intent.getStringArrayListExtra("BOOK_IDS");
+		ArrayList<String> bookNames = intent
+				.getStringArrayListExtra("BOOK_NAMES");
 
-		if (bundle != null) {
-			@SuppressWarnings("unchecked")
-			
-			//Use LinkedHashMap because HashMap is unordered
-			HashMap<String, String> bookIdTitles = (HashMap<String, String>) bundle
-					.getSerializable("BOOK_MENU");
+		LinearLayout layout = (LinearLayout) findViewById(R.id.oldtestamentlayout);
 
-			LinearLayout layout = (LinearLayout) findViewById(R.id.oldtestamentlayout);
+		for (int i = 0; i < bookIds.size(); i++) {
 
-			for (String id : bookIdTitles.keySet()) {
-
-				Button button = new Button(this);
-				button.setText(bookIdTitles.get(id));
-				button.setTag(id);
-				button.setWidth(100);
-				button.setHeight(50);
-				layout.addView(button);
-			}
-			layout.refreshDrawableState();
-		} else {
-
+			Button button = new Button(this);
+			button.setText(bookNames.get(i));
+			button.setTag(bookIds.get(i));
+			button.setWidth(100);
+			button.setHeight(50);
+			layout.addView(button);
 		}
 
+		layout.refreshDrawableState();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
