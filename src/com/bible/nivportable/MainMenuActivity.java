@@ -1,15 +1,25 @@
 package com.bible.nivportable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class MainMenuActivity extends Activity {
 
+	private BibleDatabaseHelper bdh = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
+		bdh = new BibleDatabaseHelper(this);
+		bdh.initialiseDatabase();
 	}
 
 	@Override
@@ -19,4 +29,35 @@ public class MainMenuActivity extends Activity {
 		return true;
 	}
 
+	public void loadOldTestament(View view) {
+
+		if (bdh.openDataBase()) {
+			HashMap<String, String> bookTitles = bdh.selectBookTitles(1);
+
+			Intent intent = new Intent(this, DisplayOldTestamentActivity.class);
+
+			Bundle extras = new Bundle();
+			extras.putSerializable("BOOK_MENU", bookTitles);
+			intent.putExtras(extras);
+			startActivity(intent);
+
+			bdh.close();
+		}
+	}
+
+	public void loadNewTestament(View view) {
+
+		if (bdh.openDataBase()) {
+			HashMap<String, String> bookTitles = bdh.selectBookTitles(2);
+
+			/*Intent intent = new Intent(this, DisplayNewTestamentActivity.class);
+
+			Bundle extras = new Bundle();
+			extras.putSerializable("BOOK_MENU", bookTitles);
+			intent.putExtras(extras);
+			startActivity(intent);
+
+			bdh.close();*/
+		}
+	}
 }
