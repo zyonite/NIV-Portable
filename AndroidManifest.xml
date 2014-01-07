@@ -25,16 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplayOldTestamentActivity"
+            android:name="com.bible.nivportable.DisplayBookCollectionActivity"
             android:label="@string/title_old_testament"
-            android:parentActivityName=".MainMenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenuActivity" />
-        </activity>
-        <activity
-            android:name="com.bible.nivportable.DisplayNewTestamentActivity"
-            android:label="@string/title_new_testament"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

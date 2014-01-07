@@ -15,10 +15,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class DisplayOldTestamentActivity extends Activity {
+public class DisplayBibleCollectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_old_testament);
+		setContentView(R.layout.activity_bible_collection);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -30,7 +30,7 @@ public class DisplayOldTestamentActivity extends Activity {
 		ArrayList<String> bookNames = intent
 				.getStringArrayListExtra("BOOK_NAMES");
 
-		LinearLayout layout = (LinearLayout) findViewById(R.id.oldtestamentlayout);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.biblecollectionlayout);
 
 		for (int i = 0; i < bookIds.size(); i++) {
 

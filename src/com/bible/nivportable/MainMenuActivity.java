@@ -28,13 +28,17 @@ public class MainMenuActivity extends Activity {
 		return true;
 	}
 
-	public void loadOldTestament(View view) {
+	public void loadCollectionMenu(View view) {
 
 		if (bdh.openDataBase()) {
-			ArrayList<String> bookIds = bdh.selectBookTitleIds(1);
-			ArrayList<String> bookTitles = bdh.selectBookTitles(1);
 
-			Intent intent = new Intent(this, DisplayOldTestamentActivity.class);
+			String collection = (String) view.getTag();
+
+			ArrayList<String> bookIds = bdh.selectBookTitleIds(collection);
+			ArrayList<String> bookTitles = bdh.selectBookTitles(collection);
+
+			Intent intent = new Intent(this,
+					DisplayBibleCollectionActivity.class);
 
 			intent.putStringArrayListExtra("BOOK_IDS", bookIds);
 			intent.putStringArrayListExtra("BOOK_NAMES", bookTitles);
@@ -42,23 +46,6 @@ public class MainMenuActivity extends Activity {
 			startActivity(intent);
 
 			bdh.close();
-		}
-	}
-
-	public void loadNewTestament(View view) {
-
-		if (bdh.openDataBase()) {
-			ArrayList<String> bookTitles = bdh.selectBookTitles(2);
-
-			/*
-			 * Intent intent = new Intent(this,
-			 * DisplayNewTestamentActivity.class);
-			 * 
-			 * Bundle extras = new Bundle(); extras.putSerializable("BOOK_MENU",
-			 * bookTitles); intent.putExtras(extras); startActivity(intent);
-			 * 
-			 * bdh.close();
-			 */
 		}
 	}
 }

@@ -70,12 +70,6 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return mDatabase != null;
 	}
 
-	public void SelectOldTestament() {
-		if (mDatabase != null) {
-
-		}
-	}
-
 	@Override
 	public synchronized void close() {
 		if (mDatabase != null)
@@ -96,10 +90,10 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	
 	
 	//Selects book IDs of Old Testament or New Testament
-	ArrayList<String> selectBookTitleIds(int collection) {
+	ArrayList<String> selectBookTitleIds(String collection) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT _id FROM Book WHERE collection = ?",
-				new String[] { Integer.toString(collection) });
+				new String[] { collection });
 
 		ArrayList<String> bookIdTitles = new ArrayList<String>();
 
@@ -114,10 +108,10 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	//Selects book titles of Old Testament or New Testament
-	ArrayList<String> selectBookTitles(int collection) {
+	ArrayList<String> selectBookTitles(String collection) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT name FROM Book WHERE collection = ?",
-				new String[] { Integer.toString(collection) });
+				new String[] { collection });
 
 		ArrayList<String> bookIdTitles = new ArrayList<String>();
 
