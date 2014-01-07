@@ -4,8 +4,10 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
@@ -21,6 +23,38 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.DisplayOldTestamentActivity"
+            android:label="@string/title_old_testament"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.DisplayNewTestamentActivity"
+            android:label="@string/title_new_testament"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.SearchActivity"
+            android:label="@string/title_search"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.SoapJournalActivity"
+            android:label="@string/title_soap_journal"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
         </activity>
     </application>
 
