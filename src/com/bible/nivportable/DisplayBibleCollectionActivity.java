@@ -12,8 +12,14 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplayBibleCollectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,24 +31,53 @@ public class DisplayBibleCollectionActivity extends Activity {
 		}
 
 		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
+
 		ArrayList<String> bookIds = intent.getStringArrayListExtra("BOOK_IDS");
 		ArrayList<String> bookNames = intent
 				.getStringArrayListExtra("BOOK_NAMES");
 
-		LinearLayout layout = (LinearLayout) findViewById(R.id.biblecollectionlayout);
+		ArrayList<Button> bookButtons = new ArrayList<Button>();
 
 		for (int i = 0; i < bookIds.size(); i++) {
-
 			Button button = new Button(this);
 			button.setText(bookNames.get(i));
 			button.setTag(bookIds.get(i));
-			button.setWidth(100);
-			button.setHeight(50);
-			layout.addView(button);
+			bookButtons.add(button);
 		}
 
-		layout.refreshDrawableState();
+		String[] bookNamesArray = new String[bookNames.size()];
+		bookNamesArray = bookButtons.toArray(bookNamesArray);
+
+		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, bookNamesArray);
+		
+		//for (int i = 0; i < adapter.getCount(); i++)
+		//{
+		//	adapter.get
+		//}
+
+		view.setAdapter(adapter);
+		view.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				Toast.makeText(getApplicationContext(),
+						((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// layout.setOnItemClickListener(new OnItemClickListener());
+
+		/*
+		 * for (int i = 0; i < bookIds.size(); i++) {
+		 * 
+		 * Button button = new Button(this); button.setText(bookNames.get(i));
+		 * button.setTag(bookIds.get(i)); button.setWidth(100);
+		 * button.setHeight(50); layout.addView(button); }
+		 */
+
+		view.refreshDrawableState();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {

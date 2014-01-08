@@ -1,29 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/biblecollectionlayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
+    android:numColumns="2"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp" >
 
-    <Button
-        android:id="@+id/btnButton1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Button 1" />
-
-    <Button
-        android:id="@+id/btnButton2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btnButton1"
-        android:text="Button 2" />
-
-    <Button
-        android:id="@+id/btnButton3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnButton1"
-        android:text="Button 999999" />
-
-</LinearLayout>
+</GridView>
