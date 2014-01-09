@@ -124,6 +124,61 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return bookIdTitles;
 	}
+	
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectChapterIds(String bookId) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT _id FROM Chapter WHERE book_id = ?",
+				new String[] { bookId });
+
+		ArrayList<String> chapterIds = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			chapterIds.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return chapterIds;
+	}
+	
+
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectChapterNumbers(String bookId) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT chapter_number FROM Chapter WHERE book_id = ?",
+				new String[] { bookId });
+
+		ArrayList<String> chapterNumbers = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			chapterNumbers.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return chapterNumbers;
+	}
+	
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectChapterNames(String bookId) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT chapter_name FROM Chapter WHERE book_id = ?",
+				new String[] { bookId });
+
+		ArrayList<String> chapterNames = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			chapterNames.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return chapterNames;
+	}
 
 	// Old method - Will no longer be used because HashMap is unordered and
 	// OrderedHashMap + LinkedHashMap cannot be serialized
