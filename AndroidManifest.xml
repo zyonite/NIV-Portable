@@ -26,11 +26,17 @@
         </activity>
         <activity
             android:name="com.bible.nivportable.DisplayBibleCollectionActivity"
-            android:label="@string/title_old_testament"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.DisplayChapterCollectionActivity"
+            android:parentActivityName=".DisplayBibleCollectionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayBibleCollectionActivity" />
         </activity>
         <activity
             android:name="com.bible.nivportable.SearchActivity"
