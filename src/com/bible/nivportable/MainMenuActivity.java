@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 
 public class MainMenuActivity extends Activity {
 
@@ -32,18 +33,20 @@ public class MainMenuActivity extends Activity {
 
 		if (bdh.openDataBase()) {
 
+			//Collection ID - 1 is Old Testament, 2 is New Testament
 			String collection = (String) view.getTag();
 
 			ArrayList<String> bookIds = bdh.selectBookTitleIds(collection);
 			ArrayList<String> bookTitles = bdh.selectBookTitles(collection);
 
-			Intent intent = new Intent(this,
+			Intent newIntent = new Intent(this,
 					DisplayBibleCollectionActivity.class);
+			
+			newIntent.putExtra("ACTIVITY_TITLE", ((Button)view).getText().toString());
+			newIntent.putStringArrayListExtra("BOOK_IDS", bookIds);
+			newIntent.putStringArrayListExtra("BOOK_TITLES", bookTitles);
 
-			intent.putStringArrayListExtra("BOOK_IDS", bookIds);
-			intent.putStringArrayListExtra("BOOK_NAMES", bookTitles);
-
-			startActivity(intent);
+			startActivity(newIntent);
 
 			bdh.close();
 		}

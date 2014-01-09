@@ -16,12 +16,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DisplayBibleCollectionActivity extends Activity {
+
+	private BibleDatabaseHelper bdh = null;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bible_collection);
@@ -30,52 +31,59 @@ public class DisplayBibleCollectionActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
-		Intent intent = getIntent();
+		bdh = new BibleDatabaseHelper(this);
+		bdh.initialiseDatabase();
 
-		ArrayList<String> bookIds = intent.getStringArrayListExtra("BOOK_IDS");
-		ArrayList<String> bookNames = intent
-				.getStringArrayListExtra("BOOK_NAMES");
+		Intent currentIntent = getIntent();
 
-		ArrayList<Button> bookButtons = new ArrayList<Button>();
+		String title = currentIntent.getStringExtra("ACTIVITY_TITLE");
 
-		for (int i = 0; i < bookIds.size(); i++) {
-			Button button = new Button(this);
-			button.setText(bookNames.get(i));
-			button.setTag(bookIds.get(i));
-			bookButtons.add(button);
-		}
+		setTitle(title);
 
-		String[] bookNamesArray = new String[bookNames.size()];
-		bookNamesArray = bookButtons.toArray(bookNamesArray);
+		final ArrayList<String> bookIds = currentIntent
+				.getStringArrayListExtra("BOOK_IDS");
+		final ArrayList<String> bookNames = currentIntent
+				.getStringArrayListExtra("BOOK_TITLES");
 
 		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, bookNamesArray);
-		
-		//for (int i = 0; i < adapter.getCount(); i++)
-		//{
-		//	adapter.get
-		//}
+				android.R.layout.simple_list_item_1, bookNames);
 
+		final Intent newIntent = new Intent(this,
+				DisplayChapterCollectionActivity.class);
+
+		// 0 1, 1 2, 2 3, etc
 		view.setAdapter(adapter);
 		view.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				Toast.makeText(getApplicationContext(),
-						((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+
+				if (bdh.openDataBase()) {
+
+					ArrayList<String> chapterIds = bdh
+							.selectChapterIds(bookIds.get(position));
+					ArrayList<String> chapterNumbers = bdh
+							.selectChapterNumbers(bookIds.get(position));
+
+					newIntent.putExtra("ACTIVITY_TITLE",
+							((TextView) v).getText());
+					newIntent.putStringArrayListExtra("CHAPTER_IDS",
+							chapterIds);
+					newIntent.putStringArrayListExtra("CHAPTER_NUMBERS",
+							chapterNumbers);
+
+					startActivity(newIntent);
+
+					/*
+					 * Toast.makeText( getApplicationContext(), ((TextView)
+					 * v).getText() + " " + Integer.toString(position) + " " +
+					 * bookIds.get(position), Toast.LENGTH_SHORT) .show();
+					 */
+
+				}
 			}
 		});
-
-		// layout.setOnItemClickListener(new OnItemClickListener());
-
-		/*
-		 * for (int i = 0; i < bookIds.size(); i++) {
-		 * 
-		 * Button button = new Button(this); button.setText(bookNames.get(i));
-		 * button.setTag(bookIds.get(i)); button.setWidth(100);
-		 * button.setHeight(50); layout.addView(button); }
-		 */
 
 		view.refreshDrawableState();
 	}
