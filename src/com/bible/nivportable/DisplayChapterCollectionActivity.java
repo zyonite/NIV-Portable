@@ -31,7 +31,7 @@ public class DisplayChapterCollectionActivity extends Activity {
 
 		Intent currentIntent = getIntent();
 
-		String title = currentIntent.getStringExtra("ACTIVITY_TITLE");
+		final String title = currentIntent.getStringExtra("ACTIVITY_TITLE");
 
 		setTitle(title);
 
@@ -45,8 +45,8 @@ public class DisplayChapterCollectionActivity extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, chapterNumbers);
 
-		// final Intent newIntent = new Intent(this,
-		// DisplayChapterCollectionActivity.class);
+		final Intent newIntent = new Intent(this,
+				DisplayVerseCollectionActivity.class);
 
 		// 0 1, 1 2, 2 3, etc
 		view.setAdapter(adapter);
@@ -54,22 +54,24 @@ public class DisplayChapterCollectionActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
-				/*
-				 * if (bdh.openDataBase()) {
-				 * 
-				 * ArrayList<String> chapterIds = bdh
-				 * .selectChapterIds(bookIds.get(position)); ArrayList<String>
-				 * chapterNumbers = bdh
-				 * .selectBookTitles(bookIds.get(position));
-				 * 
-				 * newIntent.putExtra("ACTIVITY_TITLE", ((TextView)
-				 * v).getText());
-				 * newIntent.putStringArrayListExtra("CHAPTER_IDS", chapterIds);
-				 * newIntent.putStringArrayListExtra("CHAPTER_NUMBERS",
-				 * chapterNumbers);
-				 * 
-				 * startActivity(newIntent); }
-				 */
+				if (bdh.openDataBase()) {
+
+					ArrayList<String> verseIds = bdh.selectVerseIds(chapterIds
+							.get(position));
+					ArrayList<String> verseNumbers = bdh
+							.selectVerseNumbers(chapterNumbers.get(position));
+
+					newIntent.putExtra("CHAPTER_NAME", title);
+
+					newIntent.putExtra("CHAPTER_NUMBER", ((TextView) v).getText());
+
+					newIntent.putStringArrayListExtra("VERSE_IDS", verseIds);
+					newIntent.putStringArrayListExtra("VERSE_NUMBERS",
+							verseNumbers);
+
+					startActivity(newIntent);
+				}
+
 			}
 		});
 

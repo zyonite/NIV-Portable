@@ -36,11 +36,11 @@ public class DisplayVerseCollectionActivity extends Activity {
 		setTitle(title);
 
 		final ArrayList<String> verseIds = currentIntent
-				.getStringArrayListExtra("CHAPTER_IDS");
+				.getStringArrayListExtra("VERSE_IDS");
 		final ArrayList<String> verseNumbers = currentIntent
-				.getStringArrayListExtra("CHAPTER_NUMBERS");
+				.getStringArrayListExtra("VERSE_NUMBERS");
 
-		GridView view = (GridView) findViewById(R.id.chaptercollectionlayout);
+		GridView view = (GridView) findViewById(R.id.versecollectionlayout);
 
 		//Groups of 3 test
 		
