@@ -39,6 +39,13 @@
                 android:value=".DisplayBibleCollectionActivity" />
         </activity>
         <activity
+            android:name="com.bible.nivportable.DisplayVerseCollectionActivity"
+            android:parentActivityName=".DisplayChapterCollectionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayChapterCollectionActivity" />
+        </activity>
+        <activity
             android:name="com.bible.nivportable.SearchActivity"
             android:label="@string/title_search"
             android:parentActivityName=".MainMenuActivity" >
