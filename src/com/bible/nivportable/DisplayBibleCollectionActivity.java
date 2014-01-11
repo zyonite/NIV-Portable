@@ -42,13 +42,13 @@ public class DisplayBibleCollectionActivity extends Activity {
 
 		final ArrayList<String> bookIds = currentIntent
 				.getStringArrayListExtra("BOOK_IDS");
-		final ArrayList<String> bookNames = currentIntent
+		final ArrayList<String> bookTitles = currentIntent
 				.getStringArrayListExtra("BOOK_TITLES");
 
 		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, bookNames);
+				android.R.layout.simple_list_item_1, bookTitles);
 
 		final Intent newIntent = new Intent(this,
 				DisplayChapterCollectionActivity.class);
