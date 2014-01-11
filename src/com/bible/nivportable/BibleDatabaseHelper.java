@@ -125,7 +125,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return bookIdTitles;
 	}
 	
-	//Selects book titles of Old Testament or New Testament
+	//Selects chapter IDs of Old Testament or New Testament
 	ArrayList<String> selectChapterIds(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT _id FROM Chapter WHERE book_id = ?",
@@ -144,7 +144,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 
-	//Selects book titles of Old Testament or New Testament
+	//Selects chapter numbers of Old Testament or New Testament
 	ArrayList<String> selectChapterNumbers(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT chapter_number FROM Chapter WHERE book_id = ?",
@@ -162,7 +162,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return chapterNumbers;
 	}
 	
-	//Selects book titles of Old Testament or New Testament
+	//Selects chapter names of Old Testament or New Testament
 	ArrayList<String> selectChapterNames(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT chapter_name FROM Chapter WHERE book_id = ?",
@@ -178,6 +178,42 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 
 		return chapterNames;
+	}
+	
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectVerseIds(String chapter_id) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT _id FROM Verse WHERE chapter_id = ?",
+				new String[] { chapter_id });
+
+		ArrayList<String> verseIds = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			verseIds.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return verseIds;
+	}
+
+	//Selects book titles of Old Testament or New Testament
+	ArrayList<String> selectVerseNumbers(String chapter_id) {
+		Cursor c = mDatabase.rawQuery(
+				"SELECT verse_number FROM Verse WHERE chapter_id = ?",
+				new String[] { chapter_id });
+
+		ArrayList<String> verseNumbers = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			verseNumbers.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return verseNumbers;
 	}
 
 	// Old method - Will no longer be used because HashMap is unordered and
