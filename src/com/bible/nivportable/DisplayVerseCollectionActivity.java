@@ -1,6 +1,7 @@
 package com.bible.nivportable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,10 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 
+	private static final int MAX_VERSES_PER_PAGE = 3;
+
+	private ArrayList<String[]> groupedVerseNumbers;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +36,8 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 		Intent currentIntent = getIntent();
 
-		String title = currentIntent.getStringExtra("CHAPTER_NAME") + " " + currentIntent.getStringExtra("CHAPTER_NUMBER");
+		String title = currentIntent.getStringExtra("CHAPTER_NAME") + " "
+				+ currentIntent.getStringExtra("CHAPTER_NUMBER");
 
 		setTitle(title);
 
@@ -40,17 +46,42 @@ public class DisplayVerseCollectionActivity extends Activity {
 		final ArrayList<String> verseNumbers = currentIntent
 				.getStringArrayListExtra("VERSE_NUMBERS");
 
-		GridView view = (GridView) findViewById(R.id.versecollectionlayout);
+		groupedVerseNumbers = splitArrayValues(verseNumbers
+				.toArray(new String[verseNumbers.size()]));
 
-		//Groups of 3 test
-		
+		ArrayList<String> groupedVerseNumbersDisplay = new ArrayList<String>();
+
+		String displayString = "";
+
+		for (int i = 0; i < groupedVerseNumbers.size(); i++) {
+			int verseCount = groupedVerseNumbers.get(i).length;
+
+			// Use format of "x - y" as display string
+			if (verseCount >= 3) {
+				displayString = groupedVerseNumbers.get(i)[0] + " - "
+						+ groupedVerseNumbers.get(i)[MAX_VERSES_PER_PAGE - 1];
+			}
+			// Use format of "x, y" as display string
+			else if (verseCount > 1) {
+				displayString = groupedVerseNumbers.get(i)[0] + ","
+						+ groupedVerseNumbers.get(i)[1];
+			}
+			// Use verse number as display string
+			else {
+				displayString = groupedVerseNumbers.get(i)[0];
+			}
+
+			groupedVerseNumbersDisplay.add(displayString);
+		}
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, verseNumbers);
+				android.R.layout.simple_list_item_1, groupedVerseNumbersDisplay);
 
 		// final Intent newIntent = new Intent(this,
 		// DisplayChapterCollectionActivity.class);
 
 		// 0 1, 1 2, 2 3, etc
+		GridView view = (GridView) findViewById(R.id.versecollectionlayout);
 		view.setAdapter(adapter);
 		view.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -76,5 +107,61 @@ public class DisplayVerseCollectionActivity extends Activity {
 		});
 
 		view.refreshDrawableState();
+	}
+
+	// Split array elements into groups of amount given by MAX_VERSES_PER_PAGE
+	private <T extends Object> ArrayList<T[]> splitArrayValues(T[] array) {
+		ArrayList<T[]> groupedList = new ArrayList<T[]>();
+
+		// Repeat grouping by this amount
+		int numberOfTimes = array.length / MAX_VERSES_PER_PAGE;
+
+		int lower = 0;
+		int upper = 0;
+
+		// Split into groups of default amount until there are less elements
+		// than default amount
+		for (int i = 0; i < numberOfTimes; i++) {
+			upper += MAX_VERSES_PER_PAGE;
+			groupedList.add(Arrays.copyOfRange(array, lower, upper));
+			lower = upper;
+		}
+
+		if (upper < array.length - 1) {
+			lower = upper;
+			upper = array.length;
+			groupedList.add(Arrays.copyOfRange(array, lower, upper));
+		}
+
+		return groupedList;
+	}
+
+	// Split array elements into groups of amount given by supplied value
+	@SuppressWarnings("unused")
+	private <T extends Object> ArrayList<T[]> splitArrayValues(T[] array,
+			int groupAmount) {
+		ArrayList<T[]> groupedList = new ArrayList<T[]>();
+
+		// Repeat grouping by this amount
+		int numberOfTimes = array.length / groupAmount;
+
+		int lower = 0;
+		int upper = 0;
+
+		// Split into groups of default amount until there are less elements
+		// than default amount
+		for (int i = 0; i < numberOfTimes; i++) {
+			upper += groupAmount;
+			groupedList.add(Arrays.copyOfRange(array, lower, upper));
+			lower = upper;
+		}
+
+		if (upper < array.length - 1) {
+			lower = upper;
+			upper = array.length;
+			groupedList.add(Arrays.copyOfRange(array, lower, upper));
+		}
+
+		return groupedList;
 	}
 }
