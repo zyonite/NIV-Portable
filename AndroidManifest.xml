@@ -33,20 +33,20 @@
         </activity>
         <activity
             android:name="com.bible.nivportable.DisplayChapterCollectionActivity"
-            android:parentActivityName=".DisplayBibleCollectionActivity" >
+            android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayBibleCollectionActivity" />
+                android:value=".MainMenuActivity" />
         </activity>
         <activity
             android:name="com.bible.nivportable.DisplayVerseCollectionActivity"
-            android:parentActivityName=".DisplayChapterCollectionActivity" >
+            android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayChapterCollectionActivity" />
+                android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.SearchActivity"
+            android:name="com.bible.nivportable.SearchVerseActivity"
             android:label="@string/title_search"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
@@ -54,7 +54,7 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.SoapJournalActivity"
+            android:name="com.bible.nivportable.DisplaySoapJournalActivity"
             android:label="@string/title_soap_journal"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
