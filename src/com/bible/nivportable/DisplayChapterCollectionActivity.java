@@ -41,7 +41,7 @@ public class DisplayChapterCollectionActivity extends Activity {
 				.getStringArrayListExtra("CHAPTER_NUMBERS");
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, chapterNumbers);
+				R.layout.gridview_button_layout, chapterNumbers);
 
 		final Intent newIntent = new Intent(this,
 				DisplayVerseCollectionActivity.class);

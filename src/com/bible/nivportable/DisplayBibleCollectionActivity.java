@@ -46,7 +46,7 @@ public class DisplayBibleCollectionActivity extends Activity {
 				.getStringArrayListExtra("BOOK_TITLES");
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, bookTitles);
+				R.layout.gridview_button_layout, bookTitles);
 
 		final Intent newIntent = new Intent(this,
 				DisplayChapterCollectionActivity.class);
@@ -72,13 +72,6 @@ public class DisplayBibleCollectionActivity extends Activity {
 							chapterNumbers);
 
 					startActivity(newIntent);
-
-					/*
-					 * Toast.makeText( getApplicationContext(), ((TextView)
-					 * v).getText() + " " + Integer.toString(position) + " " +
-					 * bookIds.get(position), Toast.LENGTH_SHORT) .show();
-					 */
-
 				}
 			}
 		});

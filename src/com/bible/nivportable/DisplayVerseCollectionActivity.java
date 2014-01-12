@@ -63,7 +63,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 			}
 			// Use format of "x, y" as display string
 			else if (verseCount > 1) {
-				displayString = groupedVerseNumbers.get(i)[0] + ","
+				displayString = groupedVerseNumbers.get(i)[0] + ", "
 						+ groupedVerseNumbers.get(i)[1];
 			}
 			// Use verse number as display string
@@ -75,7 +75,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 		}
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, groupedVerseNumbersDisplay);
+				R.layout.gridview_button_layout, groupedVerseNumbersDisplay);
 
 		// final Intent newIntent = new Intent(this,
 		// DisplayChapterCollectionActivity.class);
