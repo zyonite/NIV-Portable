@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.*;
 
 @SuppressLint("SdCardPath")
+// Will include Bible versions such as KJV and others in the future
 public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	// destination path (location) of our database on device
 	private static String DB_PATH = "";
@@ -87,9 +88,8 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
-	//Selects book IDs of Old Testament or New Testament
+
+	// Selects book IDs of either Old Testament or New Testament
 	ArrayList<String> selectBookTitleIds(String collection) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT _id FROM Book WHERE collection = ?",
@@ -107,7 +107,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return bookIdTitles;
 	}
 
-	//Selects book titles of Old Testament or New Testament
+	// Selects book titles of either Old Testament or New Testament
 	ArrayList<String> selectBookTitles(String collection) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT name FROM Book WHERE collection = ?",
@@ -124,8 +124,8 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return bookIdTitles;
 	}
-	
-	//Selects chapter IDs of Old Testament or New Testament
+
+	// Selects chapter IDs of a book
 	ArrayList<String> selectChapterIds(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT _id FROM Chapter WHERE book_id = ?",
@@ -142,9 +142,8 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return chapterIds;
 	}
-	
 
-	//Selects chapter numbers of Old Testament or New Testament
+	// Selects chapter numbers of a book
 	ArrayList<String> selectChapterNumbers(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT chapter_number FROM Chapter WHERE book_id = ?",
@@ -161,8 +160,8 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return chapterNumbers;
 	}
-	
-	//Selects chapter names of Old Testament or New Testament
+
+	// Selects chapter names of a book
 	ArrayList<String> selectChapterNames(String bookId) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT chapter_name FROM Chapter WHERE book_id = ?",
@@ -179,8 +178,8 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return chapterNames;
 	}
-	
-	//Selects book titles of Old Testament or New Testament
+
+	// Selects verse IDs of a chapter
 	ArrayList<String> selectVerseIds(String chapter_id) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT _id FROM Verse WHERE chapter_id = ?",
@@ -198,7 +197,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return verseIds;
 	}
 
-	//Selects book titles of Old Testament or New Testament
+	// Selects verse numbers of a chapter
 	ArrayList<String> selectVerseNumbers(String chapter_id) {
 		Cursor c = mDatabase.rawQuery(
 				"SELECT verse_number FROM Verse WHERE chapter_id = ?",
@@ -215,9 +214,35 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return verseNumbers;
 	}
+	
+	// Selects a range of verses of a chapter
+	ArrayList<String> selectVerses(String chapter_id, String startVerse, String endVerse) {
+		
+		String sqlCommand;
+		String[] sqlParameters;
+		
+		if (startVerse != endVerse)
+		{
+			sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number BETWEEN ? AND ?";
+			sqlParameters = new String[] { chapter_id, startVerse, endVerse };
+		}
+		else
+		{
+			sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number = ?";
+			sqlParameters = new String[] { chapter_id, startVerse };
+		}
+		
+		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
 
-	// Old method - Will no longer be used because HashMap is unordered and
-	// OrderedHashMap + LinkedHashMap cannot be serialized
-	// SQL Select Book Titles by Old Testament (1) or New Testament (2)
-	// Extension will include Bible version
+		ArrayList<String> verses = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			verses.add(c.getString(0));
+			c.moveToNext();
+		}
+		c.close();
+
+		return verses;
+	}
 }
