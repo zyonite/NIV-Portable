@@ -40,15 +40,13 @@ public class DisplayChapterCollectionActivity extends Activity {
 		final ArrayList<String> chapterNumbers = currentIntent
 				.getStringArrayListExtra("CHAPTER_NUMBERS");
 
-		GridView view = (GridView) findViewById(R.id.chaptercollectionlayout);
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, chapterNumbers);
 
 		final Intent newIntent = new Intent(this,
 				DisplayVerseCollectionActivity.class);
 
-		// 0 1, 1 2, 2 3, etc
+		GridView view = (GridView) findViewById(R.id.chaptercollectionlayout);
 		view.setAdapter(adapter);
 		view.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -63,7 +61,8 @@ public class DisplayChapterCollectionActivity extends Activity {
 
 					newIntent.putExtra("CHAPTER_NAME", title);
 
-					newIntent.putExtra("CHAPTER_NUMBER", ((TextView) v).getText());
+					newIntent.putExtra("CHAPTER_NUMBER",
+							((TextView) v).getText());
 
 					newIntent.putStringArrayListExtra("VERSE_IDS", verseIds);
 					newIntent.putStringArrayListExtra("VERSE_NUMBERS",

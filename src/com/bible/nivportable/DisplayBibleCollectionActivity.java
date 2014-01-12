@@ -45,15 +45,13 @@ public class DisplayBibleCollectionActivity extends Activity {
 		final ArrayList<String> bookTitles = currentIntent
 				.getStringArrayListExtra("BOOK_TITLES");
 
-		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, bookTitles);
 
 		final Intent newIntent = new Intent(this,
 				DisplayChapterCollectionActivity.class);
 
-		// 0 1, 1 2, 2 3, etc
+		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
 		view.setAdapter(adapter);
 		view.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
@@ -61,15 +59,15 @@ public class DisplayBibleCollectionActivity extends Activity {
 
 				if (bdh.openDataBase()) {
 
-					ArrayList<String> chapterIds = bdh
-							.selectChapterIds(bookIds.get(position));
+					ArrayList<String> chapterIds = bdh.selectChapterIds(bookIds
+							.get(position));
 					ArrayList<String> chapterNumbers = bdh
 							.selectChapterNumbers(bookIds.get(position));
 
 					newIntent.putExtra("ACTIVITY_TITLE",
 							((TextView) v).getText());
-					newIntent.putStringArrayListExtra("CHAPTER_IDS",
-							chapterIds);
+					newIntent
+							.putStringArrayListExtra("CHAPTER_IDS", chapterIds);
 					newIntent.putStringArrayListExtra("CHAPTER_NUMBERS",
 							chapterNumbers);
 
