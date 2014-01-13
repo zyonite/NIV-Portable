@@ -46,6 +46,13 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
+            android:name="com.bible.nivportable.DisplayBibleVersesActivity"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
+        </activity>
+        <activity
             android:name="com.bible.nivportable.SearchVerseActivity"
             android:label="@string/title_search"
             android:parentActivityName=".MainMenuActivity" >
