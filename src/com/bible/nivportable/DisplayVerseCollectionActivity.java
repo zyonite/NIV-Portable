@@ -11,14 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DisplayVerseCollectionActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 
-	private static final int MAX_VERSES_PER_PAGE = 3;
+	private static final int MAX_VERSES_PER_PAGE = 4;
 
 	private ArrayList<String[]> groupedVerseNumbers;
 
@@ -32,43 +31,41 @@ public class DisplayVerseCollectionActivity extends Activity {
 		}
 
 		bdh = new BibleDatabaseHelper(this);
-		bdh.initialiseDatabase();
 
-		Intent currentIntent = getIntent();
+		Intent current = getIntent();
 
-		String title = currentIntent.getStringExtra("CHAPTER_NAME") + " "
-				+ currentIntent.getStringExtra("CHAPTER_NUMBER");
+		final String chapterId = current.getStringExtra("CHAPTER_ID");
+		final String chapterName = current.getStringExtra("CHAPTER_NAME");
+		final String chapterNumber = current
+				.getStringExtra("CHAPTER_NUMBER");
+		String title = chapterName + " " + chapterNumber;
 
 		setTitle(title);
 
-		final ArrayList<String> verseIds = currentIntent
-				.getStringArrayListExtra("VERSE_IDS");
-		final ArrayList<String> verseNumbers = currentIntent
+		final ArrayList<String> verseNumbers = current
 				.getStringArrayListExtra("VERSE_NUMBERS");
-
 		groupedVerseNumbers = splitArrayValues(verseNumbers
 				.toArray(new String[verseNumbers.size()]));
 
-		ArrayList<String> groupedVerseNumbersDisplay = new ArrayList<String>();
-
 		String displayString = "";
-
+		final ArrayList<String> groupedVerseNumbersDisplay = new ArrayList<String>();
 		for (int i = 0; i < groupedVerseNumbers.size(); i++) {
-			int verseCount = groupedVerseNumbers.get(i).length;
+			String[] verseNumbersArray = groupedVerseNumbers.get(i);
+			int verseCount = verseNumbersArray.length;
 
 			// Use format of "x - y" as display string
 			if (verseCount >= 3) {
-				displayString = groupedVerseNumbers.get(i)[0] + " - "
-						+ groupedVerseNumbers.get(i)[MAX_VERSES_PER_PAGE - 1];
+				displayString = verseNumbersArray[0] + " - "
+						+ verseNumbersArray[verseNumbersArray.length - 1];
 			}
 			// Use format of "x, y" as display string
 			else if (verseCount > 1) {
-				displayString = groupedVerseNumbers.get(i)[0] + ", "
-						+ groupedVerseNumbers.get(i)[1];
+				displayString = verseNumbersArray[0] + ", "
+						+ verseNumbersArray[1];
 			}
 			// Use verse number as display string
 			else {
-				displayString = groupedVerseNumbers.get(i)[0];
+				displayString = verseNumbersArray[0];
 			}
 
 			groupedVerseNumbersDisplay.add(displayString);
@@ -77,8 +74,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.gridview_button_layout, groupedVerseNumbersDisplay);
 
-		// final Intent newIntent = new Intent(this,
-		// DisplayChapterCollectionActivity.class);
+		final Intent next = new Intent(this, DisplayBibleVersesActivity.class);
 
 		// 0 1, 1 2, 2 3, etc
 		GridView view = (GridView) findViewById(R.id.versecollectionlayout);
@@ -87,22 +83,21 @@ public class DisplayVerseCollectionActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
-				/*
-				 * if (bdh.openDataBase()) {
-				 * 
-				 * ArrayList<String> chapterIds = bdh
-				 * .selectChapterIds(bookIds.get(position)); ArrayList<String>
-				 * chapterNumbers = bdh
-				 * .selectBookTitles(bookIds.get(position));
-				 * 
-				 * newIntent.putExtra("ACTIVITY_TITLE", ((TextView)
-				 * v).getText());
-				 * newIntent.putStringArrayListExtra("CHAPTER_IDS", chapterIds);
-				 * newIntent.putStringArrayListExtra("CHAPTER_NUMBERS",
-				 * chapterNumbers);
-				 * 
-				 * startActivity(newIntent); }
-				 */
+				if (bdh.openDataBase()) {
+					String[] versesArray = groupedVerseNumbers.get(position);
+					String verseNumbersDisplay = groupedVerseNumbersDisplay
+							.get(position);
+					ArrayList<String> verses = bdh
+							.selectVerses(chapterId, versesArray[0],
+									versesArray[versesArray.length - 1]);
+
+					next.putExtra("CHAPTER_NAME", chapterName);
+					next.putExtra("CHAPTER_NUMBER", chapterNumber);
+					next.putExtra("VERSES_DISPLAYED", verseNumbersDisplay);
+					next.putExtra("BIBLE_VERSES", verses);
+
+					startActivity(next);
+				}
 			}
 		});
 

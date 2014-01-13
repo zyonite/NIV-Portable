@@ -32,23 +32,22 @@ public class DisplayBibleCollectionActivity extends Activity {
 		}
 
 		bdh = new BibleDatabaseHelper(this);
-		bdh.initialiseDatabase();
 
-		Intent currentIntent = getIntent();
+		Intent current = getIntent();
 
-		String title = currentIntent.getStringExtra("ACTIVITY_TITLE");
+		String title = current.getStringExtra("ACTIVITY_TITLE");
 
 		setTitle(title);
 
-		final ArrayList<String> bookIds = currentIntent
+		final ArrayList<String> bookIds = current
 				.getStringArrayListExtra("BOOK_IDS");
-		final ArrayList<String> bookTitles = currentIntent
+		final ArrayList<String> bookTitles = current
 				.getStringArrayListExtra("BOOK_TITLES");
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.gridview_button_layout, bookTitles);
 
-		final Intent newIntent = new Intent(this,
+		final Intent next = new Intent(this,
 				DisplayChapterCollectionActivity.class);
 
 		GridView view = (GridView) findViewById(R.id.biblecollectionlayout);
@@ -58,20 +57,20 @@ public class DisplayBibleCollectionActivity extends Activity {
 					int position, long id) {
 
 				if (bdh.openDataBase()) {
+					String bookId = bookIds.get(position);
 
-					ArrayList<String> chapterIds = bdh.selectChapterIds(bookIds
-							.get(position));
+					ArrayList<String> chapterIds = bdh.selectChapterIds(bookId);
 					ArrayList<String> chapterNumbers = bdh
-							.selectChapterNumbers(bookIds.get(position));
+							.selectChapterNumbers(bookId);
 
-					newIntent.putExtra("ACTIVITY_TITLE",
-							((TextView) v).getText());
-					newIntent
-							.putStringArrayListExtra("CHAPTER_IDS", chapterIds);
-					newIntent.putStringArrayListExtra("CHAPTER_NUMBERS",
+					next.putExtra("ACTIVITY_TITLE", ((TextView) v).getText());
+					next.putStringArrayListExtra("CHAPTER_IDS", chapterIds);
+					next.putStringArrayListExtra("CHAPTER_NUMBERS",
 							chapterNumbers);
 
-					startActivity(newIntent);
+					startActivity(next);
+
+					bdh.close();
 				}
 			}
 		});

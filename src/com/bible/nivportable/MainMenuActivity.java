@@ -39,14 +39,14 @@ public class MainMenuActivity extends Activity {
 			ArrayList<String> bookIds = bdh.selectBookTitleIds(collection);
 			ArrayList<String> bookTitles = bdh.selectBookTitles(collection);
 
-			Intent newIntent = new Intent(this,
+			Intent next = new Intent(this,
 					DisplayBibleCollectionActivity.class);
 			
-			newIntent.putExtra("ACTIVITY_TITLE", ((Button)view).getText().toString());
-			newIntent.putStringArrayListExtra("BOOK_IDS", bookIds);
-			newIntent.putStringArrayListExtra("BOOK_TITLES", bookTitles);
+			next.putExtra("ACTIVITY_TITLE", ((Button)view).getText().toString());
+			next.putStringArrayListExtra("BOOK_IDS", bookIds);
+			next.putStringArrayListExtra("BOOK_TITLES", bookTitles);
 
-			startActivity(newIntent);
+			startActivity(next);
 
 			bdh.close();
 		}

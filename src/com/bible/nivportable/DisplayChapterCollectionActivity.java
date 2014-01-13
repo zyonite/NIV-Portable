@@ -27,23 +27,22 @@ public class DisplayChapterCollectionActivity extends Activity {
 		}
 
 		bdh = new BibleDatabaseHelper(this);
-		bdh.initialiseDatabase();
 
-		Intent currentIntent = getIntent();
+		Intent current = getIntent();
 
-		final String title = currentIntent.getStringExtra("ACTIVITY_TITLE");
+		final String title = current.getStringExtra("ACTIVITY_TITLE");
 
 		setTitle(title);
 
-		final ArrayList<String> chapterIds = currentIntent
+		final ArrayList<String> chapterIds = current
 				.getStringArrayListExtra("CHAPTER_IDS");
-		final ArrayList<String> chapterNumbers = currentIntent
+		final ArrayList<String> chapterNumbers = current
 				.getStringArrayListExtra("CHAPTER_NUMBERS");
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.gridview_button_layout, chapterNumbers);
 
-		final Intent newIntent = new Intent(this,
+		final Intent next = new Intent(this,
 				DisplayVerseCollectionActivity.class);
 
 		GridView view = (GridView) findViewById(R.id.chaptercollectionlayout);
@@ -53,22 +52,20 @@ public class DisplayChapterCollectionActivity extends Activity {
 					int position, long id) {
 
 				if (bdh.openDataBase()) {
+					String chapterId = chapterIds.get(position);
+					String chapterNumber = chapterNumbers.get(position);
 
-					ArrayList<String> verseIds = bdh.selectVerseIds(chapterIds
-							.get(position));
 					ArrayList<String> verseNumbers = bdh
-							.selectVerseNumbers(chapterNumbers.get(position));
+							.selectVerseNumbers(chapterId);
 
-					newIntent.putExtra("CHAPTER_NAME", title);
+					next.putExtra("CHAPTER_ID", chapterId);
+					next.putExtra("CHAPTER_NAME", title);
+					next.putExtra("CHAPTER_NUMBER", chapterNumber);
+					next.putStringArrayListExtra("VERSE_NUMBERS", verseNumbers);
 
-					newIntent.putExtra("CHAPTER_NUMBER",
-							((TextView) v).getText());
+					startActivity(next);
 
-					newIntent.putStringArrayListExtra("VERSE_IDS", verseIds);
-					newIntent.putStringArrayListExtra("VERSE_NUMBERS",
-							verseNumbers);
-
-					startActivity(newIntent);
+					bdh.close();
 				}
 
 			}
