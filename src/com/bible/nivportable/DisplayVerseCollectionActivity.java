@@ -17,7 +17,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 
-	private static final int MAX_VERSES_PER_PAGE = 4;
+	private static final int MAX_VERSES_PER_PAGE = 3;
 
 	private ArrayList<String[]> groupedVerseNumbers;
 
@@ -54,7 +54,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 			int verseCount = verseNumbersArray.length;
 
 			// Use format of "x - y" as display string
-			if (verseCount >= 3) {
+			/*if (verseCount >= 3) {
 				displayString = verseNumbersArray[0] + " - "
 						+ verseNumbersArray[verseNumbersArray.length - 1];
 			}
@@ -66,6 +66,12 @@ public class DisplayVerseCollectionActivity extends Activity {
 			// Use verse number as display string
 			else {
 				displayString = verseNumbersArray[0];
+			}*/
+			
+			displayString = verseNumbersArray[0];
+			for (int j = 1; j < verseCount; j++)
+			{
+				displayString += ", " + verseNumbersArray[j];
 			}
 
 			groupedVerseNumbersDisplay.add(displayString);
@@ -93,7 +99,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 					next.putExtra("CHAPTER_NAME", chapterName);
 					next.putExtra("CHAPTER_NUMBER", chapterNumber);
-					next.putExtra("VERSES_DISPLAYED", verseNumbersDisplay);
+					next.putExtra("VERSE_NUMBERS", versesArray);
 					next.putExtra("BIBLE_VERSES", verses);
 
 					startActivity(next);

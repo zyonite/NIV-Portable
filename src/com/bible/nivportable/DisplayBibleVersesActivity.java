@@ -22,6 +22,8 @@ public class DisplayBibleVersesActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 
+	private final float verseTextSizeSp = 16;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,9 +45,16 @@ public class DisplayBibleVersesActivity extends Activity {
 
 		String chapterName = current.getStringExtra("CHAPTER_NAME");
 		String chapterNumber = current.getStringExtra("CHAPTER_NUMBER");
-		String versesDisplayed = current.getStringExtra("VERSES_DISPLAYED");
-		String title = chapterName + " " + chapterNumber + ":"
-				+ versesDisplayed;
+		String[] verseNumbers = current.getStringArrayExtra("VERSE_NUMBERS");
+		String title = chapterName + " " + chapterNumber + ":";
+
+		int length = verseNumbers.length;
+
+		if (length == 1) {
+			title += verseNumbers[0];
+		} else {
+			title += verseNumbers[0] + " - " + verseNumbers[length - 1];
+		}
 
 		setTitle(title);
 
@@ -57,14 +66,16 @@ public class DisplayBibleVersesActivity extends Activity {
 		for (int i = 0; i < verses.size(); i++) {
 			TextView view = new TextView(this);
 			float textSize = TypedValue.applyDimension(
-					TypedValue.COMPLEX_UNIT_SP, 18, getResources()
+					TypedValue.COMPLEX_UNIT_SP, verseTextSizeSp, getResources()
 							.getDisplayMetrics());
 			view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.WRAP_CONTENT));
-			view.setText(verses.get(i));
+			view.setText(verseNumbers[i] + " " + verses.get(i));
 			view.setTextSize(textSize);
 			layout.addView(view);
 		}
+		
+		//TODO: Generate horizontal navigation drag here 
 
 		layout.refreshDrawableState();
 	}
