@@ -91,8 +91,8 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 				if (bdh.openDataBase()) {
 					String[] versesArray = groupedVerseNumbers.get(position);
-					String verseNumbersDisplay = groupedVerseNumbersDisplay
-							.get(position);
+					//String verseNumbersDisplay = groupedVerseNumbersDisplay
+					//		.get(position);
 					ArrayList<String> verses = bdh
 							.selectVerses(chapterId, versesArray[0],
 									versesArray[versesArray.length - 1]);

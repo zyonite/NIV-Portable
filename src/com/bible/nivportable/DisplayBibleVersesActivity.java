@@ -22,7 +22,7 @@ public class DisplayBibleVersesActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 
-	private final float verseTextSizeSp = 16;
+	private final float verseTextSizeSp = 20;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +70,13 @@ public class DisplayBibleVersesActivity extends Activity {
 							.getDisplayMetrics());
 			view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.WRAP_CONTENT));
+			view.setPadding(10, 5, 10, 5);
 			view.setText(verseNumbers[i] + " " + verses.get(i));
 			view.setTextSize(textSize);
 			layout.addView(view);
 		}
 		
-		//TODO: Generate horizontal navigation drag here 
+		//TODO: Generate vertical navigation drag here 
 
 		layout.refreshDrawableState();
 	}
