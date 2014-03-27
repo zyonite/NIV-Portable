@@ -3,48 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:weightSum="4"
-    android:orientation="vertical"
-    tools:context=".MainMenuActivity">
+    tools:context=".MainMenuActivity" >
 
-	<Button
-	    android:id="@+id/button_old_testament"
+    <Button
+        android:id="@+id/button_old_testament"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/menu_old_testament"
+        android:onClick="loadCollectionMenu"
         android:tag="1"
-        android:onClick="loadCollectionMenu"/>
+        android:text="@string/menu_old_testament" />
 
-	<Button
-	    android:id="@+id/button_new_testament"
+    <Button
+        android:id="@+id/button_new_testament"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/menu_new_testament"
+        android:onClick="loadCollectionMenu"
         android:tag="2"
-        android:onClick="loadCollectionMenu"/>
+        android:text="@string/menu_new_testament" />
 
-	<Button
-	    android:id="@+id/button_search"
+    <Button
+        android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/menu_search"
         android:onClick="loadVerseSearch"
-        android:clickable="false"/>
+        android:text="@string/menu_search" />
 
-	<Button
-	    android:id="@+id/button_soap"
+    <Button
+        android:id="@+id/button_soap"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/menu_soap_journal"
+        android:clickable="false"
         android:onClick="loadSoapJournals"
-        android:clickable="false"/>
+        android:text="@string/menu_soap_journal" />
 
 </LinearLayout>

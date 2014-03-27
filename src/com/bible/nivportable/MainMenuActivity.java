@@ -33,22 +33,27 @@ public class MainMenuActivity extends Activity {
 
 		if (bdh.openDataBase()) {
 
-			//Collection ID - 1 is Old Testament, 2 is New Testament
+			// Collection ID - 1 is Old Testament, 2 is New Testament
 			String collection = (String) view.getTag();
 
 			ArrayList<String> bookIds = bdh.selectBookTitleIds(collection);
 			ArrayList<String> bookTitles = bdh.selectBookTitles(collection);
 
-			Intent next = new Intent(this,
-					DisplayBibleCollectionActivity.class);
-			
-			next.putExtra("ACTIVITY_TITLE", ((Button)view).getText().toString());
+			Intent next = new Intent(this, DisplayBibleCollectionActivity.class);
+
+			next.putExtra("ACTIVITY_TITLE", ((Button) view).getText()
+					.toString());
 			next.putStringArrayListExtra("BOOK_IDS", bookIds);
 			next.putStringArrayListExtra("BOOK_TITLES", bookTitles);
 
-			startActivity(next);
-
 			bdh.close();
+
+			startActivity(next);
 		}
+	}
+
+	public void loadVerseSearch(View view) {
+		Intent next = new Intent(this, SearchVerseActivity.class);
+		startActivity(next);
 	}
 }

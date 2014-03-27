@@ -214,24 +214,23 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return verseNumbers;
 	}
-	
+
 	// Selects a range of verses of a chapter
-	ArrayList<String> selectVerses(String chapter_id, String startVerse, String endVerse) {
-		
+	ArrayList<String> selectVerses(String chapter_id, String startVerseNumber,
+			String endVerseNumber) {
+
 		String sqlCommand;
 		String[] sqlParameters;
-		
-		if (startVerse != endVerse)
-		{
+
+		if (startVerseNumber != endVerseNumber) {
 			sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number BETWEEN ? AND ?";
-			sqlParameters = new String[] { chapter_id, startVerse, endVerse };
-		}
-		else
-		{
+			sqlParameters = new String[] { chapter_id, startVerseNumber,
+					endVerseNumber };
+		} else {
 			sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number = ?";
-			sqlParameters = new String[] { chapter_id, startVerse };
+			sqlParameters = new String[] { chapter_id, startVerseNumber };
 		}
-		
+
 		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
 
 		ArrayList<String> verses = new ArrayList<String>();
@@ -245,4 +244,26 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		return verses;
 	}
+
+	/*ArrayList<ArrayList<String>> SearchVerses(String text) {
+		String sqlCommand;
+		String[] sqlParameters;
+
+		sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number BETWEEN ? AND ?";
+		sqlParameters = new String[] { chapter_id, startVerseNumber,
+				endVerseNumber };
+
+		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
+
+		ArrayList<String> verses = new ArrayList<String>();
+
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			verses.add(c.get);
+			c.moveToNext();
+		}
+		c.close();
+
+		return verses;
+	}*/
 }
