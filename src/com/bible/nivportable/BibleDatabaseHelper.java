@@ -245,25 +245,33 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return verses;
 	}
 
-	/*ArrayList<ArrayList<String>> SearchVerses(String text) {
+	// Search book name, chapter number, verse number and verse text based on
+	// word/s used
+	ArrayList<ArrayList<String>> SearchVerses(String text) {
 		String sqlCommand;
 		String[] sqlParameters;
 
-		sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number BETWEEN ? AND ?";
-		sqlParameters = new String[] { chapter_id, startVerseNumber,
-				endVerseNumber };
+		sqlCommand = "SELECT b.name, c.chapter_number, v.verse_number, v.verse_text FROM Book b, Chapter c, Verse v WHERE LOWER(v.verse_text) LIKE LOWER(?) AND b._id = c.book_id AND c._id = v.chapter_id";
+//		sqlCommand = "SELECT b.name, c.chapter_number, v.verse_number, v.verse_text FROM Book b, Chapter c, Verse v WHERE LOWER(v.verse_text) LIKE ? AND b._id = c.book_id AND c._id = v.chapter_id";
+		String searchTerm = "%" + text + "%";
+		sqlParameters = new String[] { searchTerm };
+
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 
 		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
-
-		ArrayList<String> verses = new ArrayList<String>();
-
 		c.moveToFirst();
 		while (!c.isAfterLast()) {
-			verses.add(c.get);
+			ArrayList<String> row = new ArrayList<String>();
+			row.add(c.getString(0));
+			row.add(c.getString(1));
+			row.add(c.getString(2));
+			row.add(c.getString(3));
+			result.add(row);
+
 			c.moveToNext();
 		}
 		c.close();
 
-		return verses;
-	}*/
+		return result;
+	}
 }
