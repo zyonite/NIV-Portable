@@ -11,13 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class SearchVerseActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
 	private static final int MINIMAL_SEARCH_LENGTH = 4;
+	private Context context;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +33,7 @@ public class SearchVerseActivity extends Activity {
 		}
 
 		bdh = new BibleDatabaseHelper(this);
+		context = getApplicationContext();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,6 +57,9 @@ public class SearchVerseActivity extends Activity {
 		EditText searchText = (EditText) findViewById(R.id.searchtext);
 		String text = searchText.getText().toString();
 
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(searchText.getWindowToken(), 0);
+
 		// Prevent search if search text is too short
 		if (text.length() < MINIMAL_SEARCH_LENGTH) {
 			Context context = getApplicationContext();
@@ -60,19 +69,55 @@ public class SearchVerseActivity extends Activity {
 			Toast toast = Toast.makeText(context, errorText, duration);
 			toast.show();
 		} else {
+			View layout = findViewById(R.id.searchversescontainer);
+			ListView listView = (ListView) findViewById(R.id.versesearchresultlayout);
+
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, new String[0]);
+			listView.setAdapter(adapter);
+
 			if (bdh.openDataBase()) {
-				ArrayList<ArrayList<String>> verseResult = bdh.SearchVerses(text);
-				//String 
+				ArrayList<ArrayList<String>> result = bdh.SearchVerses(text);
+
+				// If there are results, then show them on ListView
+				if (result.size() != 0) {
+					String[] verseResults = new String[result.size()];
+					int counter = 0;
+
+					for (ArrayList<String> resultSet : result) {
+						verseResults[counter] = resultSet.get(0) + " "
+								+ resultSet.get(1) + ":" + resultSet.get(2)
+								+ " - " + resultSet.get(3);
+						counter++;
+					}
+					bdh.close();
+
+					adapter = new ArrayAdapter<String>(
+							this, android.R.layout.simple_list_item_1,
+							verseResults);
+					listView.setAdapter(adapter);
+				}
+				// Otherwise, show message about no results found
+				else {
+					CharSequence errorText = "No verses found that contains '"
+							+ text + "'";
+					int duration = Toast.LENGTH_SHORT;
+
+					Toast toast = Toast.makeText(context, errorText, duration);
+					toast.show();
+				}
+
+				listView.refreshDrawableState();
+
+				// String
 				// Intent next = new Intent(this,
 				// DisplayVerseSearchResults.class);
 
 				// startActivity(next);
-				bdh.close();
-				
-				InputMethodManager imm = (InputMethodManager)getSystemService(
-						Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(searchText.getWindowToken(), 0);
+
 			}
+
+			layout.refreshDrawableState();
 		}
 	}
 }
