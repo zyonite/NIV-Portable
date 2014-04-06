@@ -12,6 +12,7 @@ import android.widget.Button;
 public class MainMenuActivity extends Activity {
 
 	private BibleDatabaseHelper bdh = null;
+	private SOAPJournalDatabaseHelper sdh = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,8 @@ public class MainMenuActivity extends Activity {
 		setContentView(R.layout.activity_main_menu);
 		bdh = new BibleDatabaseHelper(this);
 		bdh.initialiseDatabase();
+		sdh = new SOAPJournalDatabaseHelper(this);
+		sdh.initialiseDatabase();
 	}
 
 	@Override

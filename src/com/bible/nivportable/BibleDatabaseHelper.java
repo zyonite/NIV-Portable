@@ -18,6 +18,9 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	private SQLiteDatabase mDatabase;
 	private final Context mContext;
 
+	private String sqlCommand;
+	private String[] sqlParameters;
+
 	// 1 for NIV, different number for other Bible versions
 	public BibleDatabaseHelper(Context context) {
 		super(context, DB_NAME, null, 1);// 1? its Database Version
@@ -86,7 +89,6 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
-
 	}
 
 	// Selects book IDs of either Old Testament or New Testament
@@ -218,10 +220,6 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 	// Selects a range of verses of a chapter
 	ArrayList<String> selectVerses(String chapter_id, String startVerseNumber,
 			String endVerseNumber) {
-
-		String sqlCommand;
-		String[] sqlParameters;
-
 		if (startVerseNumber != endVerseNumber) {
 			sqlCommand = "SELECT verse_text FROM Verse WHERE chapter_id = ? AND verse_number BETWEEN ? AND ?";
 			sqlParameters = new String[] { chapter_id, startVerseNumber,
@@ -245,14 +243,28 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 		return verses;
 	}
 
+	// Search verse by book title, chapter number, and verse number
+	String SearchVerse(String bookTitle, String chapterNumber,
+			String verseNumber) {
+		sqlCommand = "SELECT v.verse_text FROM Book b, Chapter c, Verse v WHERE b.name = ? AND c.chapter_number = ? AND v.verse_number = ? AND b._id = c.book_id AND c._id = v.chapter_id";
+		sqlParameters = new String[] { bookTitle, chapterNumber, verseNumber };
+
+		String result = "";
+
+		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
+		c.moveToFirst();
+		if (!c.isAfterLast()) {
+			result = c.getString(0);
+		}
+		c.close();
+
+		return result;
+	}
+
 	// Search book name, chapter number, verse number and verse text based on
 	// word/s used
 	ArrayList<ArrayList<String>> SearchVerses(String text) {
-		String sqlCommand;
-		String[] sqlParameters;
-
 		sqlCommand = "SELECT b.name, c.chapter_number, v.verse_number, v.verse_text FROM Book b, Chapter c, Verse v WHERE LOWER(v.verse_text) LIKE LOWER(?) AND b._id = c.book_id AND c._id = v.chapter_id";
-//		sqlCommand = "SELECT b.name, c.chapter_number, v.verse_number, v.verse_text FROM Book b, Chapter c, Verse v WHERE LOWER(v.verse_text) LIKE ? AND b._id = c.book_id AND c._id = v.chapter_id";
 		String searchTerm = "%" + text + "%";
 		sqlParameters = new String[] { searchTerm };
 

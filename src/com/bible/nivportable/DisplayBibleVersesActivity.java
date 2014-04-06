@@ -29,12 +29,6 @@ public class DisplayBibleVersesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bible_verses);
 
-		// next.putExtra("CHAPTER_NAME", chapterName);
-		// next.putExtra("CHAPTER_NUMBER", chapterNumber);
-		// next.putExtra("CHAPTER_VERSES_DISPLAYED",
-		// groupedVerseNumbersDisplay.get(position));
-		// next.putExtra("TEXT_VERSES", verses);
-
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}

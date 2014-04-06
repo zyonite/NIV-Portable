@@ -4,13 +4,22 @@
     <string name="app_name">NIV Portable</string>
     <string name="action_settings">Settings</string>
     <string name="button_search">Search</string>
+    <string name="hint_application">How can you apply observation?</string>
+    <string name="hint_observation">What did you observe?</string>
+    <string name="hint_scripture">Verse chosen</string>
+    <string name="hint_prayer">Prayer to God based on learning</string>
     <string name="menu_old_testament">Old Testament</string>
     <string name="menu_new_testament">New Testament</string>
     <string name="menu_search">Search Verses</string>
     <string name="menu_soap_journal">Read SOAP Journals</string>
     <string name="text_search">Enter a keyword</string>
-    <string name="title_old_testament">Old Testament</string>
+    <string name="title_application">Application</string>
+    <string name="title_create_soap_journal">Create SOAP Journal</string>
     <string name="title_new_testament">New Testament</string>
+    <string name="title_observation">Observation</string>
+    <string name="title_old_testament">Old Testament</string>
+    <string name="title_prayer">Prayer</string>
+    <string name="title_scripture">Scripture</string>
     <string name="title_search">Search Verses</string>
     <string name="title_soap_journal">Read SOAP Journals</string>
 

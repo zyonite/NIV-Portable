@@ -57,6 +57,7 @@ public class DisplayChapterCollectionActivity extends Activity {
 
 					ArrayList<String> verseNumbers = bdh
 							.selectVerseNumbers(chapterId);
+					bdh.close();
 
 					next.putExtra("CHAPTER_ID", chapterId);
 					next.putExtra("CHAPTER_NAME", title);
@@ -64,10 +65,7 @@ public class DisplayChapterCollectionActivity extends Activity {
 					next.putStringArrayListExtra("VERSE_NUMBERS", verseNumbers);
 
 					startActivity(next);
-
-					bdh.close();
 				}
-
 			}
 		});
 

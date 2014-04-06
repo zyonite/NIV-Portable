@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,12 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchVerseActivity extends Activity {
 
@@ -77,10 +81,12 @@ public class SearchVerseActivity extends Activity {
 			listView.setAdapter(adapter);
 
 			if (bdh.openDataBase()) {
-				ArrayList<ArrayList<String>> result = bdh.SearchVerses(text);
+				final ArrayList<ArrayList<String>> result = bdh
+						.SearchVerses(text);
+				bdh.close();
 
 				// If there are results, then show them on ListView
-				if (result.size() != 0) {
+				if (result.size() > 0) {
 					String[] verseResults = new String[result.size()];
 					int counter = 0;
 
@@ -90,12 +96,26 @@ public class SearchVerseActivity extends Activity {
 								+ " - " + resultSet.get(3);
 						counter++;
 					}
-					bdh.close();
 
-					adapter = new ArrayAdapter<String>(
-							this, android.R.layout.simple_list_item_1,
-							verseResults);
+					adapter = new ArrayAdapter<String>(this,
+							android.R.layout.simple_list_item_1, verseResults);
 					listView.setAdapter(adapter);
+
+					final Intent next = new Intent(this,
+							CreateSOAPJournalActivity.class);// Change
+
+					listView.setOnItemClickListener(new OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View v,
+								int position, long id) {
+							next.putExtra("BOOK_TITLE", result.get(position)
+									.get(0));
+							next.putExtra("CHAPTER_NUMBER", result
+									.get(position).get(1));
+							next.putExtra("VERSE_NUMBER", result.get(position)
+									.get(2));
+							startActivity(next);
+						}
+					});
 				}
 				// Otherwise, show message about no results found
 				else {
@@ -108,13 +128,6 @@ public class SearchVerseActivity extends Activity {
 				}
 
 				listView.refreshDrawableState();
-
-				// String
-				// Intent next = new Intent(this,
-				// DisplayVerseSearchResults.class);
-
-				// startActivity(next);
-
 			}
 
 			layout.refreshDrawableState();
