@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.*;
-import android.widget.Toast;
 
 @SuppressLint("SdCardPath")
 // Will include Bible versions such as KJV and others in the future
@@ -18,6 +18,15 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 	private static String DB_NAME = "SOAP.db";// Database name
 	private SQLiteDatabase mDatabase;
 	private final Context mContext;
+
+	private final String SOAP_TABLE_NAME = "SOAP";
+	private final String SOAP_BOOK_NAME = "book_name";
+	private final String SOAP_CHAPTER_NUMBER = "chapter_number";
+	private final String SOAP_VERSE_NUMBER = "verse_number";
+	private final String SOAP_OBSERVATION = "observation";
+	private final String SOAP_APPLICATION = "application";
+	private final String SOAP_PRAYER = "prayer";
+	private final String SOAP_DATE_CREATED = "date_created";
 
 	private String sqlCommand;
 	private String[] sqlParameters;
@@ -127,17 +136,19 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 	String SaveSOAPJournal(String bookName, String chapterNumber,
 			String verseNumber, String observation, String application,
 			String prayer) {
-		sqlCommand = "INSERT INTO SOAP (book_name, chapter_number, verse_number, observation, application, prayer) VALUES (?, ?, ?, ?, ?, ?)";
-		sqlParameters = new String[] { bookName, chapterNumber, verseNumber,
-				observation, application, prayer };
 
-		try
-		{
-			mDatabase.rawQuery(sqlCommand, sqlParameters);
+		ContentValues values = new ContentValues();
+		values.put(SOAP_BOOK_NAME, bookName);
+		values.put(SOAP_CHAPTER_NUMBER, chapterNumber);
+		values.put(SOAP_VERSE_NUMBER, verseNumber);
+		values.put(SOAP_OBSERVATION, observation);
+		values.put(SOAP_APPLICATION, application);
+		values.put(SOAP_PRAYER, prayer);
+
+		try {
+			mDatabase.insert(SOAP_TABLE_NAME, null, values);
 			return "";
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return e.getMessage();
 		}
 	}

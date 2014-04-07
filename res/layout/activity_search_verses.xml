@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/text_search" />
+            android:hint="@string/hint_search" />
 
         <Button
             android:layout_width="wrap_content"

@@ -59,4 +59,10 @@ public class MainMenuActivity extends Activity {
 		Intent next = new Intent(this, SearchVerseActivity.class);
 		startActivity(next);
 	}
+	
+	public void loadSoapJournals(View view)
+	{
+		Intent next = new Intent(this, DisplaySOAPJournalsActivity.class);
+		startActivity(next);
+	}
 }
