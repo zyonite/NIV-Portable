@@ -1,20 +1,14 @@
 package com.bible.nivportable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 //Add more functionalities to this in the future
@@ -55,23 +49,20 @@ public class DisplayBibleVersesActivity extends Activity {
 		ArrayList<String> verses = current
 				.getStringArrayListExtra("BIBLE_VERSES");
 
-		LinearLayout layout = (LinearLayout) findViewById(R.id.bibleverseslayout);
+		//Set up adapter for ListVie
+		ListView listView = (ListView) findViewById(R.id.bibleverseslayout);
+		
+		String[] verseResults = new String[verses.size()];
 
 		for (int i = 0; i < verses.size(); i++) {
-			TextView view = new TextView(this);
-			float textSize = TypedValue.applyDimension(
-					TypedValue.COMPLEX_UNIT_SP, verseTextSizeSp, getResources()
-							.getDisplayMetrics());
-			view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			view.setPadding(10, 5, 10, 5);
-			view.setText(verseNumbers[i] + " " + verses.get(i));
-			view.setTextSize(textSize);
-			layout.addView(view);
+			verseResults[i] = verseNumbers[i] + " - " + verses.get(i);
 		}
 		
-		//TODO: Generate vertical navigation drag here 
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, verseResults);
+		listView.setAdapter(adapter);
 
-		layout.refreshDrawableState();
+		//TODO: Generate vertical navigation drag here 
+		listView.refreshDrawableState();
 	}
 }
