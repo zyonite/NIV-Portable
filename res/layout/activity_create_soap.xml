@@ -33,6 +33,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/observation"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -48,6 +49,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/application"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -63,12 +65,19 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/prayer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/hint_prayer" >
         </EditText>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="saveJournal"
+            android:text="@string/button_save_journal" />/>
     </LinearLayout>
 
 </ScrollView>

@@ -66,11 +66,9 @@ public class SearchVerseActivity extends Activity {
 
 		// Prevent search if search text is too short
 		if (text.length() < MINIMAL_SEARCH_LENGTH) {
-			Context context = getApplicationContext();
 			CharSequence errorText = "You need to enter search text with four or more characters";
-			int duration = Toast.LENGTH_SHORT;
-
-			Toast toast = Toast.makeText(context, errorText, duration);
+			Toast toast = Toast
+					.makeText(context, errorText, Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
 			View layout = findViewById(R.id.searchversescontainer);
@@ -121,9 +119,8 @@ public class SearchVerseActivity extends Activity {
 				else {
 					CharSequence errorText = "No verses found that contains '"
 							+ text + "'";
-					int duration = Toast.LENGTH_SHORT;
-
-					Toast toast = Toast.makeText(context, errorText, duration);
+					Toast toast = Toast.makeText(context, errorText,
+							Toast.LENGTH_SHORT);
 					toast.show();
 				}
 

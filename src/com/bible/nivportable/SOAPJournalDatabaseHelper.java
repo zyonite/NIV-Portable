@@ -127,7 +127,7 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 	String SaveSOAPJournal(String bookName, String chapterNumber,
 			String verseNumber, String observation, String application,
 			String prayer) {
-		sqlCommand = "INSERT INTO SOAP (book_name, chapter_number, verse_number, observation, application, prayer) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		sqlCommand = "INSERT INTO SOAP (book_name, chapter_number, verse_number, observation, application, prayer) VALUES (?, ?, ?, ?, ?, ?)";
 		sqlParameters = new String[] { bookName, chapterNumber, verseNumber,
 				observation, application, prayer };
 
