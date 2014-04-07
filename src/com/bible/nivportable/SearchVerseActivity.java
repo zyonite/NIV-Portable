@@ -97,7 +97,7 @@ public class SearchVerseActivity extends Activity {
 					listView.setAdapter(adapter);
 
 					final Intent next = new Intent(this,
-							CreateSOAPJournalActivity.class);// Change
+							CreateSOAPJournalActivity.class);
 
 					listView.setOnItemClickListener(new OnItemClickListener() {
 						public void onItemClick(AdapterView<?> parent, View v,

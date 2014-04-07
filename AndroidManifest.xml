@@ -69,8 +69,16 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplaySOAPJournalsActivity"
+            android:name="com.bible.nivportable.DisplaySOAPJournalListActivity"
             android:label="@string/title_soap_journal"
+            android:parentActivityName=".MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.bible.nivportable.DisplaySOAPJournalActivity"
+            android:label="@string/title_soap_journal_entry"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

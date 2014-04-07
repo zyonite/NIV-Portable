@@ -24,5 +24,6 @@
     <string name="title_scripture">Scripture</string>
     <string name="title_search">Search Verses</string>
     <string name="title_soap_journal">Read SOAP Journals</string>
+    <string name="title_soap_journal_entry">SOAP Journal Entry</string>
 
 </resources>

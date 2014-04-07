@@ -102,8 +102,8 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	// Search all existing SOAP journal entries
-	ArrayList<ArrayList<String>> SearchSOAPJournals() {
-		sqlCommand = "SELECT book_name, chapter_number, verse_number, date(date_created) FROM SOAP";
+	ArrayList<ArrayList<String>> SearchRecordEntries() {
+		sqlCommand = "SELECT book_name, chapter_number, verse_number, date(date_created), observation, application, prayer FROM SOAP";
 
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 
@@ -124,6 +124,13 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 			String modifiedDate = dateSplit[2] + "/" + dateSplit[1] + "/"
 					+ dateSplit[0];
 			row.add(modifiedDate);
+			
+			//Observation
+			row.add(c.getString(4));
+			//Application
+			row.add(c.getString(5));
+			//Prayer
+			row.add(c.getString(6));
 
 			result.add(row);
 
