@@ -59,8 +59,8 @@ public class DisplayChapterCollectionActivity extends Activity {
 							.selectVerseNumbers(chapterId);
 					bdh.close();
 
+					next.putExtra("BOOK_TITLE", title);
 					next.putExtra("CHAPTER_ID", chapterId);
-					next.putExtra("CHAPTER_NAME", title);
 					next.putExtra("CHAPTER_NUMBER", chapterNumber);
 					next.putStringArrayListExtra("VERSE_NUMBERS", verseNumbers);
 

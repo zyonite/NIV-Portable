@@ -5,19 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.widget.LinearLayout.LayoutParams;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 //Add more functionalities to this in the future
 public class DisplayBibleVersesActivity extends Activity {
-
-	private BibleDatabaseHelper bdh = null;
-
-	private final float verseTextSizeSp = 20;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,14 +22,12 @@ public class DisplayBibleVersesActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
-		bdh = new BibleDatabaseHelper(this);
-
 		Intent current = getIntent();
 
-		String chapterName = current.getStringExtra("CHAPTER_NAME");
-		String chapterNumber = current.getStringExtra("CHAPTER_NUMBER");
-		String[] verseNumbers = current.getStringArrayExtra("VERSE_NUMBERS");
-		String title = chapterName + " " + chapterNumber + ":";
+		final String bookTitle = current.getStringExtra("BOOK_TITLE");
+		final String chapterNumber = current.getStringExtra("CHAPTER_NUMBER");
+		final String[] verseNumbers = current.getStringArrayExtra("VERSE_NUMBERS");
+		String title = bookTitle + " " + chapterNumber + ":";
 
 		int length = verseNumbers.length;
 
@@ -49,20 +42,32 @@ public class DisplayBibleVersesActivity extends Activity {
 		ArrayList<String> verses = current
 				.getStringArrayListExtra("BIBLE_VERSES");
 
-		//Set up adapter for ListVie
+		// Set up adapter for ListVie
 		ListView listView = (ListView) findViewById(R.id.bibleverseslayout);
-		
+
 		String[] verseResults = new String[verses.size()];
 
 		for (int i = 0; i < verses.size(); i++) {
 			verseResults[i] = verseNumbers[i] + " - " + verses.get(i);
 		}
-		
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, verseResults);
 		listView.setAdapter(adapter);
 
-		//TODO: Generate vertical navigation drag here 
+		final Intent next = new Intent(this, CreateSOAPJournalActivity.class);// Change
+
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				next.putExtra("BOOK_TITLE", bookTitle);
+				next.putExtra("CHAPTER_NUMBER", chapterNumber);
+				next.putExtra("VERSE_NUMBER", verseNumbers[position]);
+				startActivity(next);
+			}
+		});
+
+		// TODO: Generate vertical navigation drag here
 		listView.refreshDrawableState();
 	}
 }

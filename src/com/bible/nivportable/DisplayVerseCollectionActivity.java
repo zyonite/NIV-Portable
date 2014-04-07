@@ -34,11 +34,10 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 		Intent current = getIntent();
 
+		final String bookTitle = current.getStringExtra("BOOK_TITLE");
 		final String chapterId = current.getStringExtra("CHAPTER_ID");
-		final String chapterName = current.getStringExtra("CHAPTER_NAME");
-		final String chapterNumber = current
-				.getStringExtra("CHAPTER_NUMBER");
-		String title = chapterName + " " + chapterNumber;
+		final String chapterNumber = current.getStringExtra("CHAPTER_NUMBER");
+		String title = bookTitle + " " + chapterNumber;
 
 		setTitle(title);
 
@@ -54,23 +53,17 @@ public class DisplayVerseCollectionActivity extends Activity {
 			int verseCount = verseNumbersArray.length;
 
 			// Use format of "x - y" as display string
-			/*if (verseCount >= 3) {
-				displayString = verseNumbersArray[0] + " - "
-						+ verseNumbersArray[verseNumbersArray.length - 1];
-			}
-			// Use format of "x, y" as display string
-			else if (verseCount > 1) {
-				displayString = verseNumbersArray[0] + ", "
-						+ verseNumbersArray[1];
-			}
-			// Use verse number as display string
-			else {
-				displayString = verseNumbersArray[0];
-			}*/
-			
+			/*
+			 * if (verseCount >= 3) { displayString = verseNumbersArray[0] +
+			 * " - " + verseNumbersArray[verseNumbersArray.length - 1]; } // Use
+			 * format of "x, y" as display string else if (verseCount > 1) {
+			 * displayString = verseNumbersArray[0] + ", " +
+			 * verseNumbersArray[1]; } // Use verse number as display string
+			 * else { displayString = verseNumbersArray[0]; }
+			 */
+
 			displayString = verseNumbersArray[0];
-			for (int j = 1; j < verseCount; j++)
-			{
+			for (int j = 1; j < verseCount; j++) {
 				displayString += ", " + verseNumbersArray[j];
 			}
 
@@ -91,13 +84,13 @@ public class DisplayVerseCollectionActivity extends Activity {
 
 				if (bdh.openDataBase()) {
 					String[] versesArray = groupedVerseNumbers.get(position);
-					//String verseNumbersDisplay = groupedVerseNumbersDisplay
-					//		.get(position);
+					// String verseNumbersDisplay = groupedVerseNumbersDisplay
+					// .get(position);
 					ArrayList<String> verses = bdh
 							.selectVerses(chapterId, versesArray[0],
 									versesArray[versesArray.length - 1]);
 
-					next.putExtra("CHAPTER_NAME", chapterName);
+					next.putExtra("BOOK_TITLE", bookTitle);
 					next.putExtra("CHAPTER_NUMBER", chapterNumber);
 					next.putExtra("VERSE_NUMBERS", versesArray);
 					next.putExtra("BIBLE_VERSES", verses);
