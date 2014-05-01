@@ -121,9 +121,9 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper < array.length - 1) {
+		if (upper <= array.length - 1) {
 			lower = upper;
-			upper = array.length;
+			upper = array.length - 1;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));
 		}
 
@@ -150,9 +150,9 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper < array.length - 1) {
+		if (upper <= array.length - 1) {
 			lower = upper;
-			upper = array.length;
+			upper = array.length - 1;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));
 		}
 
