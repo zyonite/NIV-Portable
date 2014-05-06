@@ -121,9 +121,9 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper <= array.length - 1) {
+		if (upper <= array.length) {
 			lower = upper;
-			upper = array.length - 1;
+			upper = array.length;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));
 		}
 
@@ -136,8 +136,10 @@ public class DisplayVerseCollectionActivity extends Activity {
 			int groupAmount) {
 		ArrayList<T[]> groupedList = new ArrayList<T[]>();
 
-		// Repeat grouping by this amount
-		int numberOfTimes = array.length / groupAmount;
+		// Repeat grouping by this amount, use the last element's value
+
+		int numberOfValues = array.length;
+		int numberOfTimes = numberOfValues / groupAmount;
 
 		int lower = 0;
 		int upper = 0;
@@ -150,7 +152,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper <= array.length - 1) {
+		if (upper <= array.length) {
 			lower = upper;
 			upper = array.length - 1;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));

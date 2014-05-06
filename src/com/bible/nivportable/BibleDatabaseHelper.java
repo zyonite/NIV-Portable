@@ -253,9 +253,7 @@ public class BibleDatabaseHelper extends SQLiteOpenHelper {
 
 		Cursor c = mDatabase.rawQuery(sqlCommand, sqlParameters);
 		c.moveToFirst();
-		if (!c.isAfterLast()) {
-			result = c.getString(0);
-		}
+		result = c.getString(0);
 		c.close();
 
 		return result;
