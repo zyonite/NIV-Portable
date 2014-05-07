@@ -1,4 +1,4 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import java.util.ArrayList;
 
@@ -59,9 +59,8 @@ public class MainMenuActivity extends Activity {
 		Intent next = new Intent(this, SearchVerseActivity.class);
 		startActivity(next);
 	}
-	
-	public void loadSoapJournals(View view)
-	{
+
+	public void loadSoapJournals(View view) {
 		Intent next = new Intent(this, DisplaySOAPJournalListActivity.class);
 		startActivity(next);
 	}

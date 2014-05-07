@@ -1,4 +1,4 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,7 +35,7 @@ public class DisplaySOAPJournalActivity extends Activity {
 		String prayer = current.getStringExtra("PRAYER");
 
 		String title = getTitle().toString();
-		setTitle(title + " - " + dateCreated);
+		setTitle(title);// + " " + dateCreated);
 
 		if (bdh.openDataBase()) {
 			scripture = bdh.SearchVerse(bookTitle, chapterNumber, verseNumber);

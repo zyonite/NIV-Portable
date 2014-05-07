@@ -1,4 +1,4 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -124,12 +124,12 @@ public class SOAPJournalDatabaseHelper extends SQLiteOpenHelper {
 			String modifiedDate = dateSplit[2] + "/" + dateSplit[1] + "/"
 					+ dateSplit[0];
 			row.add(modifiedDate);
-			
-			//Observation
+
+			// Observation
 			row.add(c.getString(4));
-			//Application
+			// Application
 			row.add(c.getString(5));
-			//Prayer
+			// Prayer
 			row.add(c.getString(6));
 
 			result.add(row);

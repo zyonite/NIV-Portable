@@ -1,4 +1,4 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import android.app.Activity;
 import android.content.Context;

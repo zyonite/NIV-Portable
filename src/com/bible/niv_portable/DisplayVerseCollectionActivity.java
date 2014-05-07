@@ -1,4 +1,4 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +121,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper <= array.length) {
+		if (upper < array.length) {
 			lower = upper;
 			upper = array.length;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));
@@ -152,7 +152,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 			lower = upper;
 		}
 
-		if (upper <= array.length) {
+		if (upper < array.length) {
 			lower = upper;
 			upper = array.length - 1;
 			groupedList.add(Arrays.copyOfRange(array, lower, upper));

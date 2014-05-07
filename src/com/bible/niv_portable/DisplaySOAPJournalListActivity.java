@@ -1,8 +1,6 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import java.util.ArrayList;
-
-import com.bible.nivportable.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -63,32 +61,32 @@ public class DisplaySOAPJournalListActivity extends Activity {
 
 				adapter = new ArrayAdapter<String>(this,
 						android.R.layout.simple_list_item_1, journalResults);
+				
+				final Intent next = new Intent(this,
+						DisplaySOAPJournalActivity.class);// Change
+
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View v,
+							int position, long id) {
+
+						ArrayList<String> selectedResultSet = savedRecords
+								.get(position);
+
+						next.putExtra("BOOK_TITLE", selectedResultSet.get(0));
+						next.putExtra("CHAPTER_NUMBER", selectedResultSet.get(1));
+						next.putExtra("VERSE_NUMBER", selectedResultSet.get(2));
+						next.putExtra("DATE_CREATED", selectedResultSet.get(3));
+						next.putExtra("OBSERVATION", selectedResultSet.get(4));
+						next.putExtra("APPLICATION", selectedResultSet.get(5));
+						next.putExtra("PRAYER", selectedResultSet.get(6));
+
+						startActivity(next);
+					}
+				});
 			}
 
 			listView.setAdapter(adapter);
 			listView.refreshDrawableState();
-
-			final Intent next = new Intent(this,
-					DisplaySOAPJournalActivity.class);// Change
-
-			listView.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View v,
-						int position, long id) {
-
-					ArrayList<String> selectedResultSet = savedRecords
-							.get(position);
-
-					next.putExtra("BOOK_TITLE", selectedResultSet.get(0));
-					next.putExtra("CHAPTER_NUMBER", selectedResultSet.get(1));
-					next.putExtra("VERSE_NUMBER", selectedResultSet.get(2));
-					next.putExtra("DATE_CREATED", selectedResultSet.get(3));
-					next.putExtra("OBSERVATION", selectedResultSet.get(4));
-					next.putExtra("APPLICATION", selectedResultSet.get(5));
-					next.putExtra("PRAYER", selectedResultSet.get(6));
-
-					startActivity(next);
-				}
-			});
 		}
 	}
 

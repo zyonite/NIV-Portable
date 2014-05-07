@@ -1,8 +1,6 @@
-package com.bible.nivportable;
+package com.bible.niv_portable;
 
 import java.util.ArrayList;
-
-import com.bible.nivportable.R;
 
 import android.app.Activity;
 import android.content.Intent;
