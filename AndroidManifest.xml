@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.bible.nivportable.MainMenuActivity"
+            android:name="com.bible.niv_portable.MainMenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,35 +25,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplayBibleCollectionActivity"
+            android:name="com.bible.niv_portable.DisplayBibleCollectionActivity"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplayChapterCollectionActivity"
+            android:name="com.bible.niv_portable.DisplayChapterCollectionActivity"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplayVerseCollectionActivity"
+            android:name="com.bible.niv_portable.DisplayVerseCollectionActivity"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplayBibleVersesActivity"
+            android:name="com.bible.niv_portable.DisplayBibleVersesActivity"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.SearchVerseActivity"
+            android:name="com.bible.niv_portable.SearchVerseActivity"
             android:label="@string/title_search"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
@@ -61,7 +61,7 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.CreateSOAPJournalActivity"
+            android:name="com.bible.niv_portable.CreateSOAPJournalActivity"
             android:label="@string/title_create_soap_journal"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
@@ -69,7 +69,7 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplaySOAPJournalListActivity"
+            android:name="com.bible.niv_portable.DisplaySOAPJournalListActivity"
             android:label="@string/title_soap_journal"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
@@ -77,7 +77,7 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.nivportable.DisplaySOAPJournalActivity"
+            android:name="com.bible.niv_portable.DisplaySOAPJournalActivity"
             android:label="@string/title_soap_journal_entry"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data

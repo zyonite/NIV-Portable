@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class CreateSOAPJournalActivity extends Activity {
 
-	private BibleDatabaseHelper bdh = null;
 	private SOAPJournalDatabaseHelper sdh = null;
 	private Context context;
 
@@ -30,7 +29,7 @@ public class CreateSOAPJournalActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
-		bdh = new BibleDatabaseHelper(this);
+		BibleDatabaseHelper bdh = new BibleDatabaseHelper(this);
 		sdh = new SOAPJournalDatabaseHelper(this);
 		context = getApplicationContext();
 
@@ -41,15 +40,16 @@ public class CreateSOAPJournalActivity extends Activity {
 		verseNumber = current.getStringExtra("VERSE_NUMBER");
 		// String "BOOK_TITLE" "CHAPTER_NUMBER" "VERSE_NUMBER"
 
-		String scripture = "";
+		String scripture;
 
 		if (bdh.openDataBase()) {
 			scripture = bdh.SearchVerse(bookTitle, chapterNumber, verseNumber);
 			bdh.close();
 
 			TextView view = (TextView) findViewById(R.id.scripture);
-			view.setText(bookTitle + " " + chapterNumber + ":" + verseNumber
-					+ " - " + scripture);
+			String text = bookTitle + " " + chapterNumber + ":" + verseNumber
+					+ " - " + scripture;
+			view.setText(text);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class CreateSOAPJournalActivity extends Activity {
 			sdh.close();
 		}
 
-		if (message == "") {
+		if (message.equals("")) {
 			message = "Successfully saved SOAP Journal";
 
 			Intent intent = new Intent(this, MainMenuActivity.class);

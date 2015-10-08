@@ -46,7 +46,7 @@ public class DisplayVerseCollectionActivity extends Activity {
 		groupedVerseNumbers = splitArrayValues(verseNumbers
 				.toArray(new String[verseNumbers.size()]));
 
-		String displayString = "";
+		String displayString;
 		final ArrayList<String> groupedVerseNumbersDisplay = new ArrayList<String>();
 		for (int i = 0; i < groupedVerseNumbers.size(); i++) {
 			String[] verseNumbersArray = groupedVerseNumbers.get(i);
@@ -78,6 +78,14 @@ public class DisplayVerseCollectionActivity extends Activity {
 		// 0 1, 1 2, 2 3, etc
 		GridView view = (GridView) findViewById(R.id.versecollectionlayout);
 		view.setAdapter(adapter);
+
+		/*view.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+									int position, long id) {
+				//Position is the button pressed starting with 0
+
+			}
+		});*/
 		view.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
