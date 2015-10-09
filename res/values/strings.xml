@@ -8,7 +8,7 @@
     <string name="hint_application">How can you apply observation?</string>
     <string name="hint_observation">What did you observe?</string>
     <string name="hint_scripture">Verse chosen</string>
-    <string name="hint_search">What do you want to search for?</string>
+    <string name="hint_search">Enter a keyword</string>
     <string name="hint_prayer">Prayer to God based on learning</string>
     <string name="menu_old_testament">Old Testament</string>
     <string name="menu_new_testament">New Testament</string>

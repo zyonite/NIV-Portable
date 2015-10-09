@@ -76,8 +76,7 @@ public class SearchVerseActivity extends Activity {
 			listView.setAdapter(adapter);
 
 			if (bdh.openDataBase()) {
-				final ArrayList<ArrayList<String>> result = bdh
-						.SearchVerses(text);
+				final ArrayList<ArrayList<String>> result = bdh.SearchVerses(text);
 				bdh.close();
 
 				// If there are results, then show them on ListView
@@ -102,22 +101,18 @@ public class SearchVerseActivity extends Activity {
 					listView.setOnItemClickListener(new OnItemClickListener() {
 						public void onItemClick(AdapterView<?> parent, View v,
 								int position, long id) {
-							next.putExtra("BOOK_TITLE", result.get(position)
-									.get(0));
-							next.putExtra("CHAPTER_NUMBER", result
-									.get(position).get(1));
-							next.putExtra("VERSE_NUMBER", result.get(position)
-									.get(2));
+							next.putExtra("BOOK_TITLE", result.get(position).get(0));
+							next.putExtra("CHAPTER_NUMBER", result.get(position).get(1));
+							next.putExtra("VERSE_NUMBER", result.get(position).get(2));
+							next.putExtra("VERSE_TEXT", result.get(position).get(3));
 							startActivity(next);
 						}
 					});
 				}
 				// Otherwise, show message about no results found
 				else {
-					CharSequence errorText = "No verses found that contains '"
-							+ text + "'";
-					Toast toast = Toast.makeText(context, errorText,
-							Toast.LENGTH_SHORT);
+					CharSequence errorText = "No verses found that contains '" + text + "'";
+					Toast toast = Toast.makeText(context, errorText, Toast.LENGTH_SHORT);
 					toast.show();
 				}
 

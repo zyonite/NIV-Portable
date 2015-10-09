@@ -41,9 +41,9 @@ public class DisplayChapterCollectionActivity extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				R.layout.gridview_button_layout, chapterNumbers);
 
-		final Intent next = new Intent(this,
-				DisplayVerseCollectionActivity.class);
+		final Intent next = new Intent(this, DisplayBibleVersesActivity.class);
 
+		//Selecting a chapter will display all the verses in the chapter using ViewPager
 		GridView view = (GridView) findViewById(R.id.chaptercollectionlayout);
 		view.setAdapter(adapter);
 		view.setOnItemClickListener(new OnItemClickListener() {
@@ -56,12 +56,15 @@ public class DisplayChapterCollectionActivity extends Activity {
 
 					ArrayList<String> verseNumbers = bdh
 							.selectVerseNumbers(chapterId);
+					ArrayList<String> verseTexts = bdh.selectVerses(chapterId, verseNumbers.get(0),
+							verseNumbers.get(verseNumbers.size() - 1));
+
 					bdh.close();
 
 					next.putExtra("BOOK_TITLE", title);
-					next.putExtra("CHAPTER_ID", chapterId);
 					next.putExtra("CHAPTER_NUMBER", chapterNumber);
 					next.putStringArrayListExtra("VERSE_NUMBERS", verseNumbers);
+					next.putStringArrayListExtra("VERSE_TEXTS", verseTexts);
 
 					startActivity(next);
 				}

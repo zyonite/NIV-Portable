@@ -17,9 +17,10 @@ public class CreateSOAPJournalActivity extends Activity {
 	private SOAPJournalDatabaseHelper sdh = null;
 	private Context context;
 
-	String bookTitle = "";
-	String chapterNumber = "";
-	String verseNumber = "";
+	String bookTitle;
+	String chapterNumber;
+	String verseNumber;
+	String verseText;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +30,6 @@ public class CreateSOAPJournalActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
-		BibleDatabaseHelper bdh = new BibleDatabaseHelper(this);
 		sdh = new SOAPJournalDatabaseHelper(this);
 		context = getApplicationContext();
 
@@ -38,19 +38,11 @@ public class CreateSOAPJournalActivity extends Activity {
 		bookTitle = current.getStringExtra("BOOK_TITLE");
 		chapterNumber = current.getStringExtra("CHAPTER_NUMBER");
 		verseNumber = current.getStringExtra("VERSE_NUMBER");
-		// String "BOOK_TITLE" "CHAPTER_NUMBER" "VERSE_NUMBER"
+		verseText = current.getStringExtra("VERSE_TEXT");
 
-		String scripture;
-
-		if (bdh.openDataBase()) {
-			scripture = bdh.SearchVerse(bookTitle, chapterNumber, verseNumber);
-			bdh.close();
-
-			TextView view = (TextView) findViewById(R.id.scripture);
-			String text = bookTitle + " " + chapterNumber + ":" + verseNumber
-					+ " - " + scripture;
-			view.setText(text);
-		}
+		TextView view = (TextView) findViewById(R.id.scripture);
+		String scripture = bookTitle + " " + chapterNumber + ":" + verseNumber + " - " + verseText;
+		view.setText(scripture);
 	}
 
 	public void saveJournal(View view) {

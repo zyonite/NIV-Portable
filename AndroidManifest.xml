@@ -39,13 +39,6 @@
                 android:value=".MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.bible.niv_portable.DisplayVerseCollectionActivity"
-            android:parentActivityName=".MainMenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenuActivity" />
-        </activity>
-        <activity
             android:name="com.bible.niv_portable.DisplayBibleVersesActivity"
             android:parentActivityName=".MainMenuActivity" >
             <meta-data
