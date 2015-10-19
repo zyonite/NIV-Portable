@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_verses_title"
+        android:key="pref_verses_settings">
+        <ListPreference
+            android:title="Bible verse display style"
+            android:summary="How you want the bible verses to be shown on the screen?"
+            android:key="verses_display_style"
+            android:defaultValue="1"
+            android:entries="@array/displayStyles"
+            android:entryValues="@array/styleValues" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -65,4 +65,9 @@ public class MainMenuActivity extends Activity {
 		Intent next = new Intent(this, DisplaySOAPJournalListActivity.class);
 		startActivity(next);
 	}
+
+	public void loadOptions(View view) {
+		Intent next = new Intent(this, OptionsActivity.class);
+		startActivity(next);
+	}
 }

@@ -8,8 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="4"
-    tools:context=".MainMenuActivity" >
+    android:weightSum="5"
+    tools:context=".MainMenuActivity">
 
     <Button
         android:id="@+id/button_old_testament"
@@ -45,4 +45,11 @@
         android:onClick="loadSoapJournals"
         android:text="@string/menu_soap_journal" />
 
+    <Button
+        android:id="@+id/button_options"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="loadOptions"
+        android:text="@string/menu_options" />
 </LinearLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="displayStyles">
+        <item>Show verses in a list</item>
+        <item>Show verses in separate pages</item>
+    </string-array>
+    <string-array name="styleValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

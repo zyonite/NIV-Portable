@@ -27,7 +27,7 @@ public class DisplayBibleCollectionActivity extends Activity {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+	}
 
 		bdh = new BibleDatabaseHelper(this);
 

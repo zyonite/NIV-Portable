@@ -5,6 +5,5 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:numColumns="2"
-    android:orientation="vertical" >
-
+    android:orientation="vertical">
 </GridView>
